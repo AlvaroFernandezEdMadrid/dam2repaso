@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class App
 {
 	public static void main( String[] args )
 	{
-		ArrayList<Alumno> alumnos;
+		List<Alumno> alumnos;
 
 		alumnos=cargarAlumnos();
 
@@ -30,7 +31,7 @@ public class App
 
 	}
 
-	private static void mostrarMasJovenMasViejo(ArrayList<Alumno> alumnos) {
+	private static void mostrarMasJovenMasViejo(List<Alumno> alumnos) {
 		Optional<Alumno> mayorEdad, menorEdad;
 		
 		mayorEdad=alumnos.stream()
@@ -48,7 +49,7 @@ public class App
 		
 	}
 
-	private static void mostrarAprobadosCurso(ArrayList<Alumno> alumnos) {
+	private static void mostrarAprobadosCurso(List<Alumno> alumnos) {
 		List<String> cursos, temp;
 		List<Alumno> aprobados;
 		String cual;
@@ -81,7 +82,7 @@ public class App
 		
 	}
 
-	private static List<Alumno> filtrarAlumnosPorCurso(String cual, ArrayList<Alumno> alumnos) {
+	private static List<Alumno> filtrarAlumnosPorCurso(String cual, List<Alumno> alumnos) {
 		List<Alumno> aprobados;
 		
 		aprobados=alumnos.stream()
@@ -91,7 +92,7 @@ public class App
 		return aprobados;
 	}
 
-	private static void mostrarPorCursoyNota(ArrayList<Alumno> alumnos) {
+	private static void mostrarPorCursoyNota(List<Alumno> alumnos) {
 		System.out.println("\nAlumnos ordenados por curso y nota:\n");
 
 		alumnos.stream().sorted(Comparator.
@@ -101,7 +102,7 @@ public class App
 		forEach(System.out::println);
 	}
 
-	private static void mostrarPorFechayNombre(ArrayList<Alumno> alumnos) {
+	private static void mostrarPorFechayNombre(List<Alumno> alumnos) {
 		System.out.println("\nAlumnos ordenados por fecha y nombre:\n");
 
 		alumnos.stream().sorted(Comparator.
@@ -111,7 +112,7 @@ public class App
 		forEach(System.out::println);
 	}
 
-	private static void mostrarPorNombre(ArrayList<Alumno> alumnos) {
+	private static void mostrarPorNombre(List<Alumno> alumnos) {
 		System.out.println("\nAlumnos ordenados por nombre:\n");
 
 		alumnos.stream().sorted(Comparator.comparing(Alumno::getNombre)).
@@ -120,26 +121,30 @@ public class App
 
 	}
 
-	public static ArrayList<Alumno> cargarAlumnos(){
+	public static List<Alumno> cargarAlumnos(){
 
-		ArrayList<Alumno> alumnos=new ArrayList<Alumno>();
+		List<Alumno> alumnos=new ArrayList<Alumno>();
 
 		Alumno alumno;
 		String linea;
 
+		HashMap<String, String> cosa;
+		
 		// Leer alumnos del fichero
 		try (BufferedReader buffer = new BufferedReader(new FileReader ("alumnos.csv")))
 		{
 
-			while (buffer.ready()&&alumnos.size()<10)
+		/*	while (buffer.ready()&&alumnos.size()<10)
 			{
 				linea = buffer.readLine();
 				alumno = new Alumno ();
 				alumno.fromCsv(linea);
 				alumnos.add(alumno);
 			}
-
-
+		 */
+			
+			alumnos=buffer.lines().map(Alumno::fromCsv).toList();
+			
 		}  catch (IOException e) {
 			System.err.println("\nError leyendo fichero...");
 		}

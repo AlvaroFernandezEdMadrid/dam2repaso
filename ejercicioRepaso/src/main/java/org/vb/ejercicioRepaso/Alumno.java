@@ -17,7 +17,7 @@ import lombok.NonNull;
 @Builder
 public class Alumno implements Comparable<Alumno>{
 
-	private final String SEPARADOR=";";
+	private final static String SEPARADOR=";";
 	@EqualsAndHashCode.Include
 	@NonNull
 	private String nia;
@@ -27,54 +27,59 @@ public class Alumno implements Comparable<Alumno>{
 	private boolean repetidor;
 	private String curso;
 
-	public void fromCsv(String linea) {
+	public static Alumno fromCsv(String linea) {
 
 		String valores[] = linea.split(SEPARADOR);
+		Alumno a;
+		
+		a=new Alumno();
 
 		if (valores.length > 0)
 		{
 			try
 			{
-				nia = valores[0];
-				nombre = valores[1];
-				setFechaNac(LocalDate.parse(valores[2]));
-				setNota(Float.valueOf(valores[3]));
-				setRepetidor(Boolean.valueOf(valores[4]));
-				setCurso(valores[5]);
+				a.setNia(valores[0]);
+				a.setNombre(valores[1]);
+				a.setFechaNac(LocalDate.parse(valores[2]));
+				a.setNota(Float.valueOf(valores[3]));
+				a.setRepetidor(Boolean.valueOf(valores[4]));
+				a.setCurso(valores[5]);
+				
 			}
 			catch (IndexOutOfBoundsException e)
 			{
 				switch (valores.length)
 				{
 				case 1:
-					nombre = "";
+					a.setNombre("");
 				case 2:
-					fechaNac= LocalDate.now().minusYears(18);
+					a.setFechaNac(LocalDate.now().minusYears(18));
 				case 3:
-					nota = 1;
+					a.setNota(0);
 				case 4:
-					repetidor=false;
+					a.setRepetidor(false);
 				case 5:
-					curso="";
+					a.setCurso("");
 				}
 			}
 			catch (DateTimeParseException e)
 			{
-				fechaNac = LocalDate.now().minusYears(18);
+				a.setFechaNac(LocalDate.now().minusYears(18));;
 			}
 			catch (NumberFormatException e)
 			{
-				nota = 1;
+				a.setNota(0);
 			}
 			catch (IllegalArgumentException e)
 			{
 				if (e.getMessage().equals ("nota no permitida"))
-					nota = 1;
+					a.setNota(0);
 				else if (e.getLocalizedMessage().contains("alumno"))
-					fechaNac = LocalDate.now().minusYears(18);
+					a.setFechaNac(LocalDate.now().minusYears(18));
 
 			}
 		}
+		return a;
 	}
 	
 	public String toString() {
