@@ -105,6 +105,10 @@ public class Alumno {
 		return nota >= 5;
 	}
 	
+	public boolean esMayorEdad() {
+		return LocalDate.now().isAfter(getFecha().plusYears(18));
+	}
+	
 	public String toCSV ()
 	{
 		return nia + ";" + nombre + ";" + fecha + ";" + nota + ";"

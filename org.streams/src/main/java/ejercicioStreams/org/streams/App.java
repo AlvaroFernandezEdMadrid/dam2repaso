@@ -6,13 +6,20 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.vb.ejercicioRepaso.Alumno;
+
 import daw.com.Pantalla;
 import daw.com.Teclado;
 
@@ -33,10 +40,9 @@ public class App {
 		// TODO Auto-generated method stub
 		final Consumer<Object> ESCRIBIDOR = System.out::println;
 		List <Alumno> alumnos;
-		Comparator<Alumno> comparador1,comparador2, comparador3, comparador4;
-		Predicate <Alumno> predicado1, predicado2;
 		Set<String> cursos;
 		String curso;
+
 
 		// Cargar alumnos
 		alumnos = cargarAlumnos ();
@@ -44,51 +50,89 @@ public class App {
 		System.out.println("listado de alumnos cargados");
 		alumnos.forEach(ESCRIBIDOR);
 
-		// ordenar por nombre
-		comparador1 = (a,b) -> a.getNombre().compareToIgnoreCase(b.getNombre());
-		alumnos.sort(comparador1);
 
-		// ordenar por nombre inverso
-		alumnos.sort(comparador1.reversed());
+		//Mostrar iniciales de los alumnos repetidores que han aprobado
 
-		// ordenar por fecha y nombre
-		comparador2 = (a,b) -> a.getFecha().compareTo(b.getFecha());
+		System.out.println("\nIniciales alumnos:\n");
 
-		alumnos.sort(comparador2.thenComparing(comparador1));
-
-		// ordenar por curso y nota
-		comparador4 = (a,b) -> a.getCurso().compareToIgnoreCase(b.getCurso());
-		comparador3 = (a,b) -> Float.compare(a.getNota(), b.getNota());
-		alumnos.sort(comparador4.thenComparing(comparador3));
-
-		cursos = new HashSet<String> ();
-
-		alumnos.forEach(a -> cursos.add(a.getCurso()));	
-		// lectura del curso
-		do
-		{
-			System.out.println("cursos disponibles");
-			cursos.forEach(ESCRIBIDOR);
-			curso = Teclado.leerString("curso");		
-		}while (!cursos.contains(curso));
-
-		String cursoActual = curso;
-
-		predicado1 = (a) -> a.getCurso().equals(cursoActual);
-		predicado2 = Alumno::estaAprobado;
-
-		List <Alumno> copiaAlumnos = new ArrayList<>(alumnos);
-		copiaAlumnos.removeIf(predicado1.negate().or(predicado2.negate()));
+		alumnos.stream()
+		.filter(Alumno::isRepetidor) //Quitar no repetidores   
+		.filter(a -> a.getNota() >= 5) //Quitar no aprobados 
+		.map(a -> Arrays.stream(a.getNombre().split(" ")) //Obtener Array con todos los elementos del nombre
+				.map(p -> p.substring(0, 1).toUpperCase()) //Obtener iniciales y pasarlas a mayuscula
+				.reduce("", (s1, s2) -> s1 + s2)) //Concatena las iniciales
+		.forEach(ESCRIBIDOR); //Escribe
 
 
-		System.out.println("listado de alumnos aprobados en el curso " + curso);
-		copiaAlumnos.forEach(a-> Pantalla.escribirString(a.getNombre() + " " + a.getNota() + "\n"));
+		//Mostrar cursos donde hay alumnos menores de edad
+
+		System.out.println("\nCursos con alumnos mayores de edad:\n");//La regla de negocio no permite menores
+
+		alumnos.stream()
+		.filter(Alumno::esMayorEdad) //Filtramos mayores de edad
+		.map(Alumno::getCurso) //Recogemos cursos
+		.distinct() //Quitamos repes
+		.collect(Collectors.toList()) //Pasamos a lista
+		.forEach(ESCRIBIDOR); //Escribe
 
 
-		System.out.println("alumno más joven");
-		Pantalla.escribirString(Collections.max(alumnos, comparador2)+"\n");
-		System.out.println("alumno más viejuno");
-		Pantalla.escribirString(Collections.min(alumnos, comparador2)+"\n");
+		//Alumnos por curso  --TODO
+
+		//N.º de alumnos por curso --TODO
+
+		//¿Hay algún alumno en el curso "DAM2"?
+		
+		System.out.println(alumnos.stream().anyMatch(a -> a.getCurso().equalsIgnoreCase("DAM2")) 
+				? "\nHay alumnos en DAM2." 
+						: "\nNo hay alumnos en DAM2.");
+		
+		//Alumno repetidor con peor nota del curso introducido por el teclado, mostrar antes la lista de cursos.
+		
+		
+
+	}
+	
+	private static void mostrarAprobadosCurso(List<Alumno> alumnos) {
+		List<String> cursos, temp;
+		List<Alumno> aprobados;
+		String cual;
+		
+		System.out.println("\nCursos: \n");
+		
+		cursos=(ArrayList<String>) alumnos.stream()
+				.map(Alumno::getCurso) // Recogemos los cursos
+				.distinct() // Quitamos duplicados
+				.collect(Collectors.toList()); // Recogemos en forma de lista
+		
+		cursos.forEach(System.out::println); // Pintamos
+		
+		temp=(ArrayList<String>) cursos.stream()
+				.map(curso -> curso.toUpperCase()) //Transformamos a mayusculas 
+				.collect(Collectors.toList());
+		
+		do {	
+			
+			cual=Teclado.leerString("\nElige un curso: ").toUpperCase();
+				
+		} while (!temp.contains(cual));
+		
+		
+		aprobados=filtrarAlumnosPorCurso(cual,alumnos);
+		
+		System.out.println("\nAlumnos aprobados de "+cual+" :\n");
+		
+		aprobados.forEach(System.out::println);
+		
+	}
+
+	private static List<Alumno> filtrarAlumnosPorCurso(String cual, List<Alumno> alumnos) {
+		List<Alumno> aprobados;
+		
+		aprobados=alumnos.stream()
+	            .filter(alumno -> alumno.getCurso().equalsIgnoreCase(cual) && alumno.getNota() >= 5)
+	            .collect(Collectors.toList());
+		
+		return aprobados;
 	}
 
 	public static List<Alumno> cargarAlumnos ()
