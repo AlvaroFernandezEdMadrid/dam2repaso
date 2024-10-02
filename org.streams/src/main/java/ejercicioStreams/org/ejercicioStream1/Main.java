@@ -45,7 +45,8 @@ public class Main {
 		transactions.stream()
 		.filter(t->t.getYear()==2011)
 		.sorted((t1,t2)->t1.getValue())
-		.collect(Collectors.toList()).forEach(ESCRIBIDOR);;
+		.collect(Collectors.toList())
+		.forEach(ESCRIBIDOR);;
 
 		//What are all the unique cities where the traders work?
 
@@ -66,7 +67,8 @@ public class Main {
 		.map(t->t.getTrader())
 		.filter(a -> a.getCity().equalsIgnoreCase("Cambridge"))
 		.sorted((t1, t2) -> t1.getName().compareTo(t2.getName()))
-		.collect(Collectors.toList()).forEach(ESCRIBIDOR);
+		.collect(Collectors.toList())
+		.forEach(ESCRIBIDOR);
 
 		//Return a string of all traders' names sorted alphabetically.
 
@@ -77,7 +79,8 @@ public class Main {
 		.map(t->t.getName())
 		.sorted((a,b)->a.compareTo(b))
 		.reduce((a,b)->a+b)
-		.ifPresentOrElse(ESCRIBIDOR, ()->System.out.println("Sin datos"));
+		.ifPresentOrElse(
+				ESCRIBIDOR, ()->System.out.println("Sin datos"));
 
 		//Are any traders based in Milan?
 
@@ -108,7 +111,8 @@ public class Main {
 		transactions.stream()
 		.map(Transaction::getValue)
 		.min((a,b)->Integer.min(a, b))
-		.ifPresentOrElse(ESCRIBIDOR, () ->System.out.println("SIN DATO"));
+		.ifPresentOrElse(
+				ESCRIBIDOR, () ->System.out.println("SIN DATO"));
 
 		//Find the transaction with the smallest value.
 
@@ -117,7 +121,8 @@ public class Main {
 		transactions.stream()
 		.map(Transaction::getValue)
 		.max((a,b)->Integer.max(a, b))
-		.ifPresentOrElse(ESCRIBIDOR, () ->System.out.println("SIN DATO"));
+		.ifPresentOrElse(
+				ESCRIBIDOR, () ->System.out.println("SIN DATO"));
 
 		//Mostrar el total de las transacciones por la ciudad de los agentes. Intentar ordenar por cantidad.
 
@@ -126,7 +131,8 @@ public class Main {
 		Map<String, Integer> totalPorCiudad = transactions.stream()
 				.collect(Collectors.groupingBy(
 						t -> t.getTrader().getCity(), 
-						Collectors.summingInt(Transaction::getValue) 
+						Collectors.summingInt(
+								Transaction::getValue) 
 						));
 
 		totalPorCiudad.entrySet().stream()
