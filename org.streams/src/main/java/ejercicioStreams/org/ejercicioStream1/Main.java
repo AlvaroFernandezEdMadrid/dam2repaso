@@ -65,6 +65,7 @@ public class Main {
 
 		transactions.stream()
 		.map(t->t.getTrader())
+		.distinct()
 		.filter(a -> a.getCity().equalsIgnoreCase("Cambridge"))
 		.sorted((t1, t2) -> t1.getName().compareTo(t2.getName()))
 		.collect(Collectors.toList())
@@ -76,9 +77,10 @@ public class Main {
 
 		transactions.stream()
 		.map(t->t.getTrader())
+		.distinct()
 		.map(t->t.getName())
 		.sorted((a,b)->a.compareTo(b))
-		.reduce((a,b)->a+b)
+		.reduce((a,b)->a+","+b)
 		.ifPresentOrElse(
 				ESCRIBIDOR, ()->System.out.println("Sin datos"));
 
@@ -88,6 +90,7 @@ public class Main {
 
 		System.out.println(transactions.stream()
 				.map(Transaction::getTrader)
+				.distinct()
 				.anyMatch(trader -> trader.getCity().equals("Milan")) 
 				? "Hay un Trader en Milan." 
 						: "No hay Traders en Milan.");
@@ -110,7 +113,7 @@ public class Main {
 
 		transactions.stream()
 		.map(Transaction::getValue)
-		.min((a,b)->Integer.min(a, b))
+		.max((a,b)->a-b)
 		.ifPresentOrElse(
 				ESCRIBIDOR, () ->System.out.println("SIN DATO"));
 
@@ -120,7 +123,7 @@ public class Main {
 
 		transactions.stream()
 		.map(Transaction::getValue)
-		.max((a,b)->Integer.max(a, b))
+		.min((a,b)->a-b)
 		.ifPresentOrElse(
 				ESCRIBIDOR, () ->System.out.println("SIN DATO"));
 
