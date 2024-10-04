@@ -24,6 +24,16 @@ public class Puja {
 	public void setCantidad(float cantidad) throws IllegalArgumentException{
 		if (cantidad<0) {
 			throw new IllegalArgumentException("\nNo se permiten valores negativos");
+			
+		}else {
+			this.cantidad=cantidad;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Puja [pujador=" + pujador + ", cantidad=" + cantidad + "]";
+	}
+	
+	
 }

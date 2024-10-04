@@ -13,15 +13,12 @@ public class Main {
 		subasta = new Subasta("Telefono Movil", u1);
 
 		subasta.pujar(u2, 100);
+		//subasta.pujar(u1, 101);
+		subasta.pujar(u3, 102);
+		
+		subasta.getPujas().stream().forEach(a->System.out.println(a));
 
-		Puja pujaMayor = subasta.getPujaMayor();
-		if (pujaMayor != null) {
-			System.out.println("Puja mayor: " 
-					+ pujaMayor.getPujador().getNombre() 
-					+ " con " + pujaMayor.getCantidad() + " euros.");
-		}
-
-		subasta.pujar(u3); 
+		 
 
 		subasta.ejecutar();
 

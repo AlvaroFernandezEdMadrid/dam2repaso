@@ -19,35 +19,35 @@ public class Subasta {
         this.nombreProducto = nombreProducto;
         this.propietario = propietario;
         this.abierta = true;
-        this.pujas = new ArrayList<>();
+        this.pujas = new ArrayList<Puja>();
     }
 
-    public boolean pujar(Usuario pujador, float cantidad) {
+    public boolean pujar(Usuario pujador, float cant) {
     
         boolean aceptada = false;
         
         if (isAbierta() 
             && !pujador.getNombre().equalsIgnoreCase(propietario.getNombre()) 
-            && pujador.getCredito() >= cantidad 
-            && (getPujaMayor() == null || getPujaMayor().getCantidad() < cantidad)) {
+            && pujador.getCredito() >= cant
+            && (getPujaMayor() == null || getPujaMayor().getCantidad() < cant)) {
             
-            
-            Puja nuevaPuja = new Puja(pujador, cantidad, this);
+        	aceptada = true; 
+        	
+            Puja nuevaPuja = new Puja(pujador, cant, this);
             pujas.add(nuevaPuja); 
-            pujador.decrementarCredito(cantidad); 
-            aceptada = true; 
+            
         }
         
         return aceptada; 
     }
 
     
-    public void pujar(Usuario pujador) {
+    public boolean pujar(Usuario pujador) {
         float cantidadPuja = (getPujaMayor() == null) ? 1 : getPujaMayor().getCantidad() + 1;
-        pujar(pujador, cantidadPuja);
+        return pujar(pujador, cantidadPuja);
     }
 
-    public void cerrarSubasta() {
+    private void cerrarSubasta() {
         setAbierta(false);
     }
 

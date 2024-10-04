@@ -46,4 +46,9 @@ public class Usuario {
 
 		return exito;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", credito=" + credito + "]";
+	}
 }
