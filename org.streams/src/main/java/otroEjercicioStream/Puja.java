@@ -10,7 +10,7 @@ public class Puja {
 	private Usuario pujador;
 	private float cantidad;
 	private Subasta subasta;
-	
+
 	public Puja(Usuario pujador, float cantidad, Subasta subasta) {
 		this.pujador=pujador;
 		try {
@@ -20,7 +20,7 @@ public class Puja {
 		}
 		this.subasta=subasta;
 	}
-	
+
 	public void setCantidad(float cantidad) throws IllegalArgumentException{
 		if (cantidad<0) {
 			throw new IllegalArgumentException("\nNo se permiten valores negativos");
