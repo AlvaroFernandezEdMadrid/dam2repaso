@@ -10,6 +10,40 @@ public class Main {
 	public static void main(String[] args) {
 		List<Departamento> departamentos=cargarDatos();
 		
+		//Consultas:
+		
+		// Obtener los datos completos de los todos los empleados por orden alfabético.
+		
+		// Obtener el nombre y cargo de todos los empleados, ordenado por salario.
+		
+		// Listar los salarios y comisiones de los empleados del departamento introducido por teclado.
+		
+		/* Obtener el valor total a pagar que resulta de sumar a los empleados del departamento introducido por teclado, 
+		 * una bonificación de 500000€, en orden alfabético del empleado.*/
+		 
+			
+		
+		// Obtener la lista de los empleados que ganan una comisión superior a su sueldo.
+		
+		// Obtener los nombres de los departamentos que hay en cada ciudad.
+		
+		// Hallar el salario más alto, el más bajo y la diferencia entre ellos.
+		
+		// Entregar el número de empleados de sexo femenino y de sexo masculino
+		
+		// Entregar el nombre del departamento cuya suma de salarios sea la más alta, indicando el valor de la suma
+		
+		// Obtener la lista de empleados jefes, que tienen al menos un empleado a su cargo
+		
+		// Hallar el salario promedio por departamento.
+		
+		// Obtener información de los empleados cuyo nombre tiene exactamente 11 caracteres.
+		
+		// Entregar el total a pagar por comisiones, y el número de empleados que las reciben.
+		
+		/* Suponer que la empresa va a aplicar un reajuste salarial del 7%. Listar los nombres de los
+		 * empleados, su salario actual y su nuevo salario, indicando para cada uno de ellos si tiene o no comisión.*/
+		 
 		
 	}
 	
