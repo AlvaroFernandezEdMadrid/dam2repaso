@@ -13,7 +13,7 @@ public class Main {
 		//Consultas:
 		
 		// Obtener los datos completos de los todos los empleados por orden alfabético.
-		
+			departamentos.stream().flatMap(a->a.getEmpleados().stream().sorted((a,b)->a.getNombre()))
 		// Obtener el nombre y cargo de todos los empleados, ordenado por salario.
 		
 		// Listar los salarios y comisiones de los empleados del departamento introducido por teclado.

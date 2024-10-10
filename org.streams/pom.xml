@@ -28,5 +28,10 @@
     <version>5.7.1</version>
 </dependency>
 
+  	<dependency>
+  		<groupId>org.dam2afl</groupId>
+  		<artifactId>adPrueba</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
