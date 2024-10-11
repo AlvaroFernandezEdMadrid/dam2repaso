@@ -38,7 +38,11 @@ public class Empleado {
 	@CsvBindByPosition(position=2)
 	@CsvDate("yyyy-MM-dd")
 	private LocalDate fechaNac;
-	@CsvBindAndSplitByPosition(position = 3, elementType= Telefono.class, splitOn = "@", converter = TextToTelefono.class)
+	@CsvBindAndSplitByPosition(position = 3, elementType= Telefono.class, splitOn = "@", converter = TextToTelefono.class, writeDelimiter = "@")
 	private List<Telefono> telefonos;
 	
+	
+	public boolean isMayorEdad() {
+		return LocalDate.now().isAfter(fechaNac.plusYears(18));
+	}
 }

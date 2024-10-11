@@ -24,7 +24,7 @@ public class Instituto {
 	private String numeroTel;
 	@CsvBindByPosition(position = 3)
 	private float presupuesto;
-	@CsvBindAndSplitByPosition(position = 4, elementType= Empleado.class, splitOn = ";", converter = TextToEmpleado.class)
+	@CsvBindAndSplitByPosition(position = 4, elementType= Empleado.class, splitOn = ";", converter = TextToEmpleado.class, writeDelimiter = ";")
 	private List<Empleado> empleados;
 	
 	public void setPresupuesto(float pres) throws IllegalArgumentException{
