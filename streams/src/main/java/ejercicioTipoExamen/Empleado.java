@@ -1,10 +1,12 @@
 package ejercicioTipoExamen;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import com.opencsv.bean.CsvBindAndSplitByPosition;
 import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvCustomBindByPosition;
 import com.opencsv.bean.CsvDate;
 
 import lombok.AllArgsConstructor;
@@ -39,10 +41,27 @@ public class Empleado {
 	@CsvDate("yyyy-MM-dd")
 	private LocalDate fechaNac;
 	@CsvBindAndSplitByPosition(position = 3, elementType= Telefono.class, splitOn = "@", converter = TextToTelefono.class, writeDelimiter = "@")
-	private List<Telefono> telefonos;
-	
-	
+	private Set<Telefono> telefonos;
+	@CsvCustomBindByPosition(position=4,converter = OptionalToText.class)
+	private Optional<Vehiculo> vehiculo;
+
 	public boolean isMayorEdad() {
 		return LocalDate.now().isAfter(fechaNac.plusYears(18));
 	}
+	
+	public void setVehiculo(Vehiculo transporte) {
+		this.vehiculo = Optional.ofNullable(transporte);
+	}
+
+	@Override
+	public String toString() {
+		return "Empleado [nombre=" + nombre + ", nif=" + nif + ", fechaNac=" + fechaNac + ", telefonos=" + telefonos
+				+ ", vehiculo=" + vehiculo.map(Vehiculo::getMatricula).orElse("sin vehiculo") + "]";
+	}
+
+	private void ajustarVehiculo (Vehiculo v)
+	{
+		//TODO
+	}
+	
 }

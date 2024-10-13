@@ -18,16 +18,18 @@ public class Main {
 		List<Departamento> departamentos=cargarDatos();
 
 
-		//Consultas:
+		//CONSULTAS:
 
-		// Obtener los datos completos de los todos los empleados por orden alfabético.
+		// Consulta 1.
 		System.out.println("\nTodos los empleados por orden alfabético:\n");
 		
 		departamentos.stream()
 		.flatMap(d -> d.getEmpleados().stream())
 		.sorted(Comparator.comparing(Empleado::getNombre))
 		.collect(Collectors.toList()).forEach(ESCRIBIDOR);
-		// Obtener el nombre y cargo de todos los empleados, ordenado por salario.
+		
+		// Consulta 2.
+		
 		System.out.println("\nNombre y cargo de todos los empleados, ordenado por salario:\n");
 		
 		departamentos.stream()
@@ -35,7 +37,9 @@ public class Main {
         .sorted(Comparator.comparingDouble(Empleado::getSalario))
         .map(empleado -> empleado.getNombre() + " - " + empleado.getCargo())
         .collect(Collectors.toList()).forEach(ESCRIBIDOR);
-		// Listar los salarios y comisiones de los empleados del departamento introducido por teclado.
+		
+		// Consulta 3.
+		
 		System.out.println("\nSalarios y comisiones de los empleados del departamento introducido:\n");
 		System.out.println("\nElige un departamento:\n");
 		String cual;
@@ -57,36 +61,54 @@ public class Main {
 		.forEach(ESCRIBIDOR);
 		
 		
-		/* Obtener el valor total a pagar que resulta de sumar a los empleados del departamento introducido por teclado, 
-		 * una bonificación de 500000€, en orden alfabético del empleado.*/
-		System.out.println("\n\n");
+		// Consulta 4.
+		
+		System.out.println("\nTotal de sumar 500.000€ como bonificacion al sueldo de los empleados del departamento:\n");
 
-		// Obtener la lista de los empleados que ganan una comisión superior a su sueldo.
+		// Consulta 5.
+		
 		System.out.println("\nEmpleados que ganan una comisión superior a su sueldo:\n");
 		departamentos.stream()
         .flatMap(departamento -> departamento.getEmpleados().stream()
             .filter(empleado -> empleado.getComision() > empleado.getSalario()))
         .collect(Collectors.toList())
         .forEach(ESCRIBIDOR);
-		// Obtener los nombres de los departamentos que hay en cada ciudad.
-		System.out.println("\n\n");
-		// Hallar el salario más alto, el más bajo y la diferencia entre ellos.
-		System.out.println("\n\n");
-		// Entregar el número de empleados de sexo femenino y de sexo masculino
-		System.out.println("\n\n");
-		// Entregar el nombre del departamento cuya suma de salarios sea la más alta, indicando el valor de la suma
-		System.out.println("\n\n");
-		// Obtener la lista de empleados jefes, que tienen al menos un empleado a su cargo
-		System.out.println("\n\n");
-		// Hallar el salario promedio por departamento.
-		System.out.println("\n\n");
-		// Obtener información de los empleados cuyo nombre tiene exactamente 11 caracteres.
-		System.out.println("\n\n");
-		// Entregar el total a pagar por comisiones, y el número de empleados que las reciben.
-		System.out.println("\n\n");
-		/* Suponer que la empresa va a aplicar un reajuste salarial del 7%. Listar los nombres de los
-		 * empleados, su salario actual y su nuevo salario, indicando para cada uno de ellos si tiene o no comisión.*/
-		System.out.println("\n\n");
+		
+		// Consulta 6.
+		
+		System.out.println("\nNombres de los departamentos que hay en cada ciudad:\n");
+		
+		// Consulta 7.
+		
+		System.out.println("\nEl salario más alto, el más bajo y la diferencia entre ellos:\n");
+		
+		// Consulta 8.
+		
+		System.out.println("\nNúmero de empleados de sexo femenino y de sexo masculino:\n");
+		
+		// Consulta 9.	
+		
+		System.out.println("\nNombre del departamento cuya suma de salarios sea la más alta, cantidad:\n");
+		
+		// Consulta 10.
+		
+		System.out.println("\nLista de empleados jefes, que tienen al menos un empleado:\n");
+		
+		// Consulta 11.
+		
+		System.out.println("\nSalario promedio por departamento\n");
+		
+		// Consulta 12.
+		
+		System.out.println("\nInformación de los empleados cuyo nombre tiene exactamente 11 caracteres:\n");
+		
+		// Consulta 13.
+		
+		System.out.println("\nTotal a pagar por comisiones, y el número de empleados que las reciben:\n");
+		
+		// Consulta 14.
+		
+		System.out.println("\nReajuste del 7%. Listar empleados con su nuevo salario. Indicar si tienen o no comision:\n");
 	}
 
 	public static List<Departamento> cargarDatos(){

@@ -1,29 +1,24 @@
 package ejercicioTipoExamen;
 
 import java.io.*;
-import java.util.AbstractMap;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
 import com.opencsv.bean.*;
 import com.opencsv.exceptions.*;
 
 public class App {
 	final static Consumer<Object> ESCRIBIDOR=System.out::println;
 	public static void main(String[] args) throws IllegalStateException, FileNotFoundException{
-		List<Instituto> beans = new CsvToBeanBuilder(new FileReader("institutos.csv"))
+		List<Instituto> beans = new CsvToBeanBuilder(new FileReader("institutos1.csv"))
 				.withType(Instituto.class)
 				.withSeparator(':')
 				.build()
 				.parse();
 
-		guardarDatosCSV(beans);
+		//guardarDatosCSV(beans);
 
-		//beans.forEach(System.out::println);
-
+		beans.forEach(System.out::println);
+/*
 		//Consultas:
 
 		//1 - Listado del nombre y el número de teléfono, 
@@ -77,7 +72,7 @@ public class App {
 		System.out.println("\nConsulta 6:\n");
 
 		
-
+*/
 	}
 
 	public static void guardarDatosCSV (List<Instituto> deptos)

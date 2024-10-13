@@ -1,6 +1,6 @@
 package ejercicioTipoExamen;
 
-import java.util.List;
+import java.util.Set;
 
 import com.opencsv.bean.CsvBindAndSplitByPosition;
 import com.opencsv.bean.CsvBindByPosition;
@@ -25,7 +25,7 @@ public class Instituto {
 	@CsvBindByPosition(position = 3)
 	private float presupuesto;
 	@CsvBindAndSplitByPosition(position = 4, elementType= Empleado.class, splitOn = ";", converter = TextToEmpleado.class, writeDelimiter = ";")
-	private List<Empleado> empleados;
+	private Set<Empleado> empleados;
 	
 	public void setPresupuesto(float pres) throws IllegalArgumentException{
 		if (pres<0) {
