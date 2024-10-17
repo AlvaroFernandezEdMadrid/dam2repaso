@@ -1,15 +1,17 @@
 package ejercicioTipoExamen;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import static java.util.stream.Collectors.*;
 import com.opencsv.bean.*;
 import com.opencsv.exceptions.*;
 
 public class App {
 	final static Consumer<Object> ESCRIBIDOR=System.out::println;
 	public static void main(String[] args) throws IllegalStateException, FileNotFoundException{
-		List<Instituto> beans = new CsvToBeanBuilder(new FileReader("institutos1.csv"))
+		List<Instituto> beans = new CsvToBeanBuilder(new FileReader("institutos.csv"))
 				.withType(Instituto.class)
 				.withSeparator(':')
 				.build()
@@ -18,7 +20,7 @@ public class App {
 		//guardarDatosCSV(beans);
 
 		beans.forEach(System.out::println);
-/*
+		
 		//Consultas:
 
 		//1 - Listado del nombre y el número de teléfono, 
@@ -30,7 +32,7 @@ public class App {
 				.startsWith("28"))
 		.map(a->a.getNombre()+" - "+a.getNumeroTel())
 		.sorted(Comparator.comparing(e->e.toString()))
-		.collect(Collectors.toList()).forEach(ESCRIBIDOR);
+		.collect(toList()).forEach(ESCRIBIDOR);
 
 		//2 - Listado del nombre de todas las personas de todos los institutos que tengan un 
 		// vehículo de color “verde”. 
@@ -45,7 +47,7 @@ public class App {
 				.flatMap(e -> e.getTelefonos().stream()
 						.map(Telefono::getCompania)))
 		.distinct()
-		.collect(Collectors.toList())
+		.collect(toList())
 		.forEach(ESCRIBIDOR);
 
 		//Total del presupuesto de todos los institutos que tengan más de una persona. 
@@ -65,14 +67,14 @@ public class App {
 		beans.stream()
 		.filter(i -> i.getEmpleados().stream()
 				.noneMatch(empleado -> !empleado.isMayorEdad()))
-		.collect(Collectors.toList()).forEach(ESCRIBIDOR);
+		.collect(toList()).forEach(ESCRIBIDOR);
 
 		//Listado del nombre y todos los datos de todos los teléfonos de contactos 
 		//de todas las personas menores de edad por nombre de instituto.
 		System.out.println("\nConsulta 6:\n");
-
 		
-*/
+		
+		 
 	}
 
 	public static void guardarDatosCSV (List<Instituto> deptos)
