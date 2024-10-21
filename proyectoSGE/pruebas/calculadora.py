@@ -1,120 +1,92 @@
 '''
 Created on 21 oct 2024
 
-@author: usertar
+@author: afl
 '''
 import tkinter as tk
 from tkinter import ttk
-from blinker._utilities import text
-
-flag=False
 
 ventana= tk.Tk()
 
 ventana.title("Calculadora Pocha")
 
 pantalla=ttk.Label(ventana,text="")
-pantalla.grid(column=0,row=0)
+pantalla.grid(column=0,row=0, columnspan=5)
 
-def add1():
-    # Obtener el texto actual y convertirlo a un número
+def add(valor):
     texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)  # Convertir a entero
-    # Sumar 1 al número
-    nuevo_numero = numero_actual + 1
-    # Actualizar el texto de la etiqueta
-    pantalla.configure(text=str(nuevo_numero))
+    texto_actual += str(valor)
+    pantalla.configure(text=texto_actual)
+   
+def borrar(): 
+    pantalla.configure(text="")
     
-def add2():
+def calcular():
     texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 2
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add3():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 3
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add4():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 4
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add5():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 5
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add6():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 6
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add7():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 7
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add8():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 8
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add9():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 9
-    pantalla.configure(text=str(nuevo_numero))
-    
-def add0():
-    texto_actual = pantalla.cget("text")
-    numero_actual = int(texto_actual)
-    nuevo_numero = numero_actual + 0
-    pantalla.configure(text=str(nuevo_numero))
+    try:
+        resultado = eval(texto_actual)
+        pantalla.configure(text=str(resultado))
+    except Exception as e:
+        pantalla.configure(text="Error")
     
 
-Btn7=ttk.Button(ventana,text="7",command=add7)
-Btn7.grid(column=0,row=1)
+#Columna 0
 
-Btn4=ttk.Button(ventana,text="4",command=add4)
-Btn4.grid(column=0,row=2)
+BtnBorrar=ttk.Button(ventana,text="C",command=borrar)
+BtnBorrar.grid(column=0,row=1)
 
-Btn1=ttk.Button(ventana,text="1",command=add1)
-Btn1.grid(column=0,row=3)
+Btn7=ttk.Button(ventana,text="7",command=lambda: add(7))
+Btn7.grid(column=0,row=2)
+
+Btn4=ttk.Button(ventana,text="4",command=lambda: add(4))
+Btn4.grid(column=0,row=3)
+
+Btn1=ttk.Button(ventana,text="1",command=lambda: add(1))
+Btn1.grid(column=0,row=4)
 
 
+#Columna 1
+Btn8=ttk.Button(ventana,text="8",command=lambda: add(8))
+Btn8.grid(column=1,row=2)
 
-Btn8=ttk.Button(ventana,text="8",command=add8)
-Btn8.grid(column=1,row=1)
+Btn5=ttk.Button(ventana,text="5",command=lambda: add(5))
+Btn5.grid(column=1,row=3)
 
-Btn5=ttk.Button(ventana,text="5",command=add5)
-Btn5.grid(column=1,row=2)
-
-Btn2=ttk.Button(ventana,text="5",command=add5)
-Btn2.grid(column=1,row=3)
-
-Btn2=ttk.Button(ventana,text="0",command=add5)
+Btn2=ttk.Button(ventana,text="2",command=lambda: add(2))
 Btn2.grid(column=1,row=4)
 
+Btn2=ttk.Button(ventana,text="0",command=lambda: add(0))
+Btn2.grid(column=1,row=5)
 
-Btn8=ttk.Button(ventana,text="9",command=add9)
-Btn8.grid(column=3,row=1)
+#Columna 2
+Btn8=ttk.Button(ventana,text="9",command=lambda: add(9))
+Btn8.grid(column=3,row=2)
 
-Btn5=ttk.Button(ventana,text="6",command=add6)
-Btn5.grid(column=3,row=2)
+Btn5=ttk.Button(ventana,text="6",command=lambda: add(6))
+Btn5.grid(column=3,row=3)
 
-Btn2=ttk.Button(ventana,text="3",command=add3)
-Btn2.grid(column=3,row=3)
+Btn2=ttk.Button(ventana,text="3",command=lambda: add(3))
+Btn2.grid(column=3,row=4)
 
+BtnDec=ttk.Button(ventana,text=".",command=lambda: add("."))
+BtnDec.grid(column=3,row=5)
 
+#Columna 3
 
+BtnSuma=ttk.Button(ventana,text="+",command=lambda: add("+"))
+BtnSuma.grid(column=4,row=1)
+
+BtnResta=ttk.Button(ventana,text="-",command=lambda: add("-"))
+BtnResta.grid(column=4,row=2)
+
+BtnMulti=ttk.Button(ventana,text="*",command=lambda: add("*"))
+BtnMulti.grid(column=4,row=3)
+
+BtnDivi=ttk.Button(ventana,text="/",command=lambda: add("/"))
+BtnDivi.grid(column=4,row=4)
+
+BtnTotal=ttk.Button(ventana,text="=",command=calcular)
+BtnTotal.grid(column=4,row=5)
 
 ventana.mainloop()
 
