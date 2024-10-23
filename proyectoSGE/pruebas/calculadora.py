@@ -9,6 +9,7 @@ from tkinter import ttk
 ventana= tk.Tk()
 
 ventana.title("Calculadora Pocha")
+#ventana.geometry("500x500")
 
 pantalla=ttk.Label(ventana,text="")
 pantalla.grid(column=0,row=0, columnspan=5)
@@ -87,6 +88,8 @@ BtnDivi.grid(column=4,row=4)
 
 BtnTotal=ttk.Button(ventana,text="=",command=calcular)
 BtnTotal.grid(column=4,row=5)
+
+
 
 ventana.mainloop()
 

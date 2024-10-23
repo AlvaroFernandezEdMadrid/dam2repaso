@@ -11,7 +11,7 @@ flag=False
 
 ventana= tk.Tk()
 
-ventana.title("Poronga")
+ventana.title("ASdsaffdasdf")
 
 lblTag=ttk.Label(ventana,text="jajaSalu2")
 lblTag.grid(column=0,row=0)
