@@ -83,7 +83,7 @@
 			<minima>8</minima>
 			<condiciones>Despejado</condiciones>
 			<icono>23_d</icono>
-			<viento direccion="N">8</viento>
+			<viento direccion="Norte">8</viento>
 			<probabilidad_precipitacion>0</probabilidad_precipitacion>
 			<precipitacion>0.0</precipitacion>
 			<humedad_max>0</humedad_max>
