@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<empresa>
+    <nombreEmpresa>villablanca</nombreEmpresa>
+    <empleados>
+        <empleado id="001">
+            <nombre>Pedro</nombre>
+            <dept>info</dept>
+            <sueldo>14000.0</sueldo>
+            <fechaNacimiento>2000-01-10</fechaNacimiento>
+        </empleado>
+    </empleados>
+</empresa>

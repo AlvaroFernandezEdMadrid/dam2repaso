@@ -1,0 +1,11 @@
+{
+  "nombre": "villablanca",
+  "empleados": [
+    {
+      "id": "002",
+      "nombre": "Paco",
+      "dept": "Infor",
+      "sueldo": 12000.0
+    }
+  ]
+}
