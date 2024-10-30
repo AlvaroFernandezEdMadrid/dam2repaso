@@ -42,7 +42,6 @@ public class App
 			
 			ms.marshal(wrapper, new FileWriter("personas.xml"));
 
-
 		} catch (JAXBException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
