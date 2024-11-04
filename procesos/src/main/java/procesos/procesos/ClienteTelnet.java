@@ -14,7 +14,7 @@ public class ClienteTelnet {
 	public ClienteTelnet(String server, String user, String password) {
 		try {
 			// Connect to the specified server
-			telnet.connect(server, 23);
+			telnet.connect(server, 2323);
 
 			// Get input and output stream references
 			in = telnet.getInputStream();
@@ -98,7 +98,7 @@ public class ClienteTelnet {
 		try {
 
 			ClienteTelnet telnet = new ClienteTelnet(
-					"127.0.0.1", "usertar", "usertar");
+					"localhost", "alvaro", "alvaro");
 			System.out.println("Got Connection...");
 			telnet.sendCommand("ps -ef ");
 			System.out.println("run command");
