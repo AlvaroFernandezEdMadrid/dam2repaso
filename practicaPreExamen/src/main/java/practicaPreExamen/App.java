@@ -27,7 +27,7 @@ public class App
 			.flatMap(a -> a.getVueltas().stream())
 			.filter(b -> b.getNumEtapas() > 10)
 			.sorted(Comparator.comparing(Vuelta::getAnio))
-			.map(b -> "Nombre: " + b.getNombre() + ", Año: " + b.getAnio() + ", Director: " + b.getDirector())
+			.map(b -> "Nombre: " + b.getNombre() + ", Anio: " + b.getAnio() + ", Director: " + b.getDirector())
 			.forEach(System.out::println);
 
 			// 

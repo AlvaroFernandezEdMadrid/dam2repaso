@@ -12,7 +12,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvConstraintViolationException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
-public class CorredorToText extends AbstractCsvConverter{
+public class TextToCorredor extends AbstractCsvConverter{
 
 	@Override
 	public Object convertToRead(String value) throws CsvDataTypeMismatchException, CsvConstraintViolationException {

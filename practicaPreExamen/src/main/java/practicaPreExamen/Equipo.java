@@ -20,7 +20,7 @@ public class Equipo {
 	@EqualsAndHashCode.Include
 	@CsvBindByPosition(position = 0)
 	private String nombre;
-	@CsvBindAndSplitByPosition(position = 1, elementType = Corredor.class, splitOn = "~", converter = CorredorToText.class)
+	@CsvBindAndSplitByPosition(position = 1, elementType = Corredor.class, splitOn = "~", converter = TextToCorredor.class)
 	private Set<Corredor> corredores;
 	@CsvBindByPosition(position = 2)
 	private String nombrePatro;

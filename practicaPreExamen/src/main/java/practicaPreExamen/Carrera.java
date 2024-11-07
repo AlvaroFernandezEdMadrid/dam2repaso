@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Carrera {
-	@CsvBindAndSplitByPosition(position = 0, elementType= Vuelta.class, splitOn = "%", converter = VueltaToText.class)
+	@CsvBindAndSplitByPosition(position = 0, elementType= Vuelta.class, splitOn = "%", converter = TextToVuelta.class)
 	private List<Vuelta> vueltas;
 }

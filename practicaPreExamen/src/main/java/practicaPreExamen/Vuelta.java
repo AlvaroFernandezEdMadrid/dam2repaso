@@ -29,6 +29,6 @@ public class Vuelta {
 	@CsvBindByPosition(position = 4) 
 	@EqualsAndHashCode.Include
 	private int anio;
-	@CsvBindAndSplitByPosition(position = 5, elementType = Equipo.class, splitOn = ";", converter = EquipoToText.class)
+	@CsvBindAndSplitByPosition(position = 5, elementType = Equipo.class, splitOn = ";", converter = TextToEquipo.class)
 	private List<Equipo> equipos; 
 }
