@@ -1,0 +1,160 @@
+{
+  "empleados": [
+    {
+      "id": "001",
+      "nombre": "Paco",
+      "fechaNac": "2000-01-01",
+      "estadoEmpleo": "Inactivo",
+      "proyectos": [
+        {
+          "nombre": "Proyecto1",
+          "fecha": "2023-01-02"
+        },
+        {
+          "nombre": "Proyecto2",
+          "fecha": "2024-01-02"
+        }
+      ]
+    },
+    {
+      "id": "002",
+      "nombre": "Pedro",
+      "fechaNac": "1999-01-01",
+      "estadoEmpleo": "Activo",
+      "proyectos": [
+        {
+          "nombre": "Proyecto69",
+          "fecha": "2021-01-02"
+        }
+      ]
+    },
+    {
+      "id": "003",
+      "nombre": "Laura",
+      "fechaNac": "2005-03-15",
+      "estadoEmpleo": "Activo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoX",
+          "fecha": "2022-05-10"
+        },
+        {
+          "nombre": "ProyectoY",
+          "fecha": "2024-02-14"
+        }
+      ]
+    },
+    {
+      "id": "004",
+      "nombre": "Carlos",
+      "fechaNac": "2010-07-20",
+      "estadoEmpleo": "Inactivo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoAlpha",
+          "fecha": "2020-11-11"
+        },
+        {
+          "nombre": "ProyectoBeta",
+          "fecha": "2023-08-30"
+        }
+      ]
+    },
+    {
+      "id": "005",
+      "nombre": "Ana",
+      "fechaNac": "2008-09-05",
+      "estadoEmpleo": "Activo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoDelta",
+          "fecha": "2021-06-05"
+        },
+        {
+          "nombre": "ProyectoGamma",
+          "fecha": "2023-04-01"
+        }
+      ]
+    },
+    {
+      "id": "006",
+      "nombre": "María",
+      "fechaNac": "2012-04-10",
+      "estadoEmpleo": "Activo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoOmega",
+          "fecha": "2023-03-01"
+        },
+        {
+          "nombre": "ProyectoZeta",
+          "fecha": "2024-05-01"
+        }
+      ]
+    },
+    {
+      "id": "007",
+      "nombre": "Luis",
+      "fechaNac": "2001-11-20",
+      "estadoEmpleo": "Inactivo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoEpsilon",
+          "fecha": "2019-09-09"
+        },
+        {
+          "nombre": "ProyectoLambda",
+          "fecha": "2024-03-15"
+        }
+      ]
+    },
+    {
+      "id": "008",
+      "nombre": "José",
+      "fechaNac": "2015-02-14",
+      "estadoEmpleo": "Activo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoSigma",
+          "fecha": "2023-07-15"
+        },
+        {
+          "nombre": "ProyectoPhi",
+          "fecha": "2024-06-01"
+        }
+      ]
+    },
+    {
+      "id": "009",
+      "nombre": "Isabel",
+      "fechaNac": "2013-06-10",
+      "estadoEmpleo": "Activo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoTheta",
+          "fecha": "2022-12-01"
+        },
+        {
+          "nombre": "ProyectoPi",
+          "fecha": "2024-01-25"
+        }
+      ]
+    },
+    {
+      "id": "010",
+      "nombre": "Ricardo",
+      "fechaNac": "2016-01-25",
+      "estadoEmpleo": "Inactivo",
+      "proyectos": [
+        {
+          "nombre": "ProyectoRho",
+          "fecha": "2021-11-01"
+        },
+        {
+          "nombre": "ProyectoKappa",
+          "fecha": "2024-04-10"
+        }
+      ]
+    }
+  ]
+}
