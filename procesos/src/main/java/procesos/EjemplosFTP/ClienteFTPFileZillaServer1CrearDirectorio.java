@@ -12,8 +12,8 @@ public class ClienteFTPFileZillaServer1CrearDirectorio {
 		FTPClient cliente = new FTPClient();
 		String servFTP = "172.26.131.120"; // O "localhost"
 		System.out.println("Nos conectamos a: " + servFTP);
-		String usuario = "userman";
-		String clave = "userman";
+		String usuario = "usertar";
+		String clave = "usertar";
 		try {
 			cliente.connect(servFTP);
 			// modo de conexion del cliente: pasivo-comandos de tipo PASV
@@ -27,7 +27,7 @@ public class ClienteFTPFileZillaServer1CrearDirectorio {
 				System.exit(1);
 			}
 
-			String directorio = "CarpetaAFL";
+			String directorio = "patata";
 			if (cliente.makeDirectory(directorio))
 				System.out.println("Directorio creado.");
 			else

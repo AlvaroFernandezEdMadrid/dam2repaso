@@ -5,7 +5,7 @@ import org.apache.commons.net.ftp.*;
 public class ClienteFTPFileZillaServer4DescargarFichero {
 	public static void main(String[] args) {
 		FTPClient cliente = new FTPClient();	
-	    String servidor = "localhost";
+	    String servidor = "172.26.131.120";
 		String user = "usertar";
 		String pasw = "usertar";
 		try {
@@ -19,8 +19,8 @@ public class ClienteFTPFileZillaServer4DescargarFichero {
 				String direc = "/NUEVODIREC";
 				cliente.changeWorkingDirectory(direc); 			
 				//stream de salida para recibir el fichero descargado
-				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream("/home/usertar/holaDestino.txt")); //Destino			
-				if(cliente.retrieveFile("hola.txt", out)) // Origen
+				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream("/home/usertar/telamamas.txt")); //Destino			
+				if(cliente.retrieveFile("telamamas.txt", out)) // Origen
 					System.out.println("Recuperado correctamente... ");
 				else
 					System.out.println("No se ha podido descargar... ");
