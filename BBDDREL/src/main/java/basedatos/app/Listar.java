@@ -2,9 +2,9 @@ package basedatos.app;
 
 import java.util.function.Consumer;
 
+import BBDDREL.Service;
 import basedatos.Depart;
 import basedatos.DepartDAO;
-import basedatos.Service;
 import basedatos.unidirecional1an.VistaDepart;
 
 public class Listar implements Service {

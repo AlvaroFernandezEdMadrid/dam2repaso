@@ -1,6 +1,6 @@
 package basedatos.app;
 
-import basedatos.Service;
+import BBDDREL.Service;
 
 public class MenuItem {
 	private String mensaje;

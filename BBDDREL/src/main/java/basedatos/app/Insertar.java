@@ -1,8 +1,8 @@
 package basedatos.app;
 
-import basedatos.DepartDAO;
-import basedatos.Service;
+import BBDDREL.Service;
 import basedatos.unidirecional1an.ControladorDepart;
+import basedatos.unidirecional1an.DepartDAO;
 
 public class Insertar implements Service {
 
