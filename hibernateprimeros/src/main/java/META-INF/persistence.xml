@@ -8,9 +8,9 @@
 
  <persistence-unit name="hibernate" transaction-type="RESOURCE_LOCAL">
  	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+ 	<class>models.Alumno</class>
 
 	<!-- Coge sólo las clases que aparecen -->
-	<class>hibernateprimeros.hibernateprimeros.Alumno</class>
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	<!--  propiedades de la conexión a la BBDD -->
