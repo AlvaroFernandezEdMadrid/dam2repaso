@@ -4,44 +4,58 @@ import java.util.Scanner;
 
 public class Ejer9Cliente {
     public static void main(String[] args) {
-        DatagramSocket socketCliente = null;
-        Scanner lector = new Scanner(System.in);
-        int puertoDestino = 5000;
-        String hostServidor = "localhost"; 
+        DatagramSocket socket = null;
+        Scanner inputScanner = new Scanner(System.in);
+        int puertoServidor = 5000;
+        String direccionServidor = "localhost";
 
         try {
-            socketCliente = new DatagramSocket();
-            System.out.print("Introduce el nombre: ");
-            String nombreCompleto = lector.nextLine();
-            System.out.print("Introduce la edad: ");
-            int edad = lector.nextInt();
-            lector.nextLine();  // Limpiar el buffer de entrada
-            Usuario usuario = new Usuario(nombreCompleto, edad);
-            System.out.println("Cliente: " + usuario);
+            int numeroIngresado = Integer.MAX_VALUE;
 
-            ByteArrayOutputStream flujoSalidaBytes = new ByteArrayOutputStream();
-            ObjectOutputStream flujoSalidaObjetos = new ObjectOutputStream(flujoSalidaBytes);
-            flujoSalidaObjetos.writeObject(usuario);
-            byte[] datosParaEnvio = flujoSalidaBytes.toByteArray();
+            
+            socket = new DatagramSocket();
+            socket.setSoTimeout(5000);  
 
-            DatagramPacket paqueteEnvio = new DatagramPacket(datosParaEnvio, datosParaEnvio.length,
-                    InetAddress.getByName(hostServidor), puertoDestino);
-            socketCliente.send(paqueteEnvio);
+            
+            while (numeroIngresado > 0) {
+                System.out.print("Introduce un número mayor que 0, o 0 para salir: ");
+                numeroIngresado = Integer.valueOf(inputScanner.nextLine());
 
-            byte[] bufferRecibido = new byte[1024];
-            DatagramPacket paqueteRespuesta = new DatagramPacket(bufferRecibido, bufferRecibido.length);
-            socketCliente.receive(paqueteRespuesta);
+                
+                Numeros datosEnviados = new Numeros(numeroIngresado);
+                System.out.println("Enviando: " + datosEnviados);
 
-            ByteArrayInputStream flujoEntradaBytes = new ByteArrayInputStream(paqueteRespuesta.getData());
-            ObjectInputStream flujoEntradaObjetos = new ObjectInputStream(flujoEntradaBytes);
-            Usuario usuarioModificado = (Usuario) flujoEntradaObjetos.readObject();
+                
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+                objectOutputStream.writeObject(datosEnviados);
+                byte[] bufferEnvio = byteArrayOutputStream.toByteArray();
 
-            System.out.println("Cliente: " + usuarioModificado);
+                
+                DatagramPacket packetEnvio = new DatagramPacket(bufferEnvio, bufferEnvio.length,
+                        InetAddress.getByName(direccionServidor), puertoServidor);
+                socket.send(packetEnvio);
 
-            flujoSalidaObjetos.close();
-            flujoEntradaObjetos.close();
-            socketCliente.close();
-            lector.close();
+                
+                byte[] bufferRecibido = new byte[1024];
+                DatagramPacket packetRecibido = new DatagramPacket(bufferRecibido, bufferRecibido.length);
+                socket.receive(packetRecibido);
+
+                
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packetRecibido.getData());
+                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                Numeros datosRespuesta = (Numeros) objectInputStream.readObject();
+
+                System.out.println("Respuesta: " + datosRespuesta);
+
+                
+                objectOutputStream.close();
+                objectInputStream.close();
+            }
+
+            
+            socket.close();
+            inputScanner.close();
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error: " + e.getMessage());

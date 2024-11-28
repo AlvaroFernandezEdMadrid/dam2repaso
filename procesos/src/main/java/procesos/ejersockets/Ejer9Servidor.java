@@ -3,41 +3,61 @@ import java.io.*;
 
 public class Ejer9Servidor {
     public static void main(String[] args) {
-        DatagramSocket socketServidor = null;
-        int puertoConexion = 5000; 
+        DatagramSocket socket = null;
+        int puerto = 5000;
 
         try {
-            socketServidor = new DatagramSocket(puertoConexion);
-            System.out.println("Servidor UP en puerto " + puertoConexion);
+            
+            socket = new DatagramSocket(puerto);
+            System.out.println("Servidor UDP activo, esperando datos...");
 
-            byte[] bufferDatos = new byte[1024];
-            DatagramPacket paqueteDeEntrada = new DatagramPacket(bufferDatos, bufferDatos.length);
+            int numeroRecibido = Integer.MAX_VALUE;
 
-            socketServidor.receive(paqueteDeEntrada);
-            ByteArrayInputStream flujoEntradaBytes = new ByteArrayInputStream(paqueteDeEntrada.getData());
-            ObjectInputStream flujoEntradaObjetos = new ObjectInputStream(flujoEntradaBytes);
-            Usuario usuarioRecibido = (Usuario) flujoEntradaObjetos.readObject();
-            System.out.println("Servidor: " + usuarioRecibido);
+            
+            while (numeroRecibido > 0) {
+                byte[] buffer = new byte[1024];
+                DatagramPacket packetEntrada = new DatagramPacket(buffer, buffer.length);
 
-            usuarioRecibido.setNombre(usuarioRecibido.getNombre().toUpperCase());
-            usuarioRecibido.setEdad(usuarioRecibido.getEdad() + 1);
-            System.out.println("Servidor: " + usuarioRecibido);
+                
+                socket.receive(packetEntrada);
+                ByteArrayInputStream entradaBytes = new ByteArrayInputStream(packetEntrada.getData());
+                ObjectInputStream flujoEntrada = new ObjectInputStream(entradaBytes);
 
-            ByteArrayOutputStream flujoSalidaBytes = new ByteArrayOutputStream();
-            ObjectOutputStream flujoSalidaObjetos = new ObjectOutputStream(flujoSalidaBytes);
-            flujoSalidaObjetos.writeObject(usuarioRecibido);
-            byte[] datosParaEnviar = flujoSalidaBytes.toByteArray();
+                
+                Numeros datos = (Numeros) flujoEntrada.readObject();
+                System.out.println("Datos recibidos: " + datos);
 
-            DatagramPacket paqueteDeSalida = new DatagramPacket(datosParaEnviar, datosParaEnviar.length,
-                    paqueteDeEntrada.getAddress(), paqueteDeEntrada.getPort());
-            socketServidor.send(paqueteDeSalida);
+                numeroRecibido = datos.getNumero();
 
-            flujoEntradaObjetos.close();
-            flujoSalidaObjetos.close();
-            socketServidor.close();
+                
+                if (numeroRecibido <= 0) {
+                    System.out.println("Número no válido recibido, terminando servidor.");
+                } else {
+                    
+                    datos.calcular();
+                    System.out.println("Datos modificados: " + datos);
+
+                    
+                    ByteArrayOutputStream salidaBytes = new ByteArrayOutputStream();
+                    ObjectOutputStream flujoSalida = new ObjectOutputStream(salidaBytes);
+                    flujoSalida.writeObject(datos);
+                    byte[] datosAEnviar = salidaBytes.toByteArray();
+
+                    
+                    DatagramPacket packetSalida = new DatagramPacket(datosAEnviar, datosAEnviar.length,
+                            packetEntrada.getAddress(), packetEntrada.getPort());
+                    socket.send(packetSalida);
+
+                    flujoEntrada.close();
+                    flujoSalida.close();
+                }
+            }
+
+            
+            socket.close();
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
-        } 
+        }
     }
 }
