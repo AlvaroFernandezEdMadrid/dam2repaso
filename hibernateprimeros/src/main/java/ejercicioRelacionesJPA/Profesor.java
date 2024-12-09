@@ -1,11 +1,13 @@
 package ejercicioRelacionesJPA;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -13,16 +15,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Profesor {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Profesor implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+	@Id
+	@Column(name="ID_PROFESOR")
+    @GeneratedValue (strategy = GenerationType.AUTO)
+	@EqualsAndHashCode.Include
+    private Integer id;
+	
+    @Column(name = "DNI", length = 9)
     private String dni;
+    @Column(name = "NOMBRE", length = 30)
     private String nombre;
+    @Column(name = "ESPECIALIDAD", length = 30)
     private String especialidad;
 
-    @OneToMany(mappedBy = "profesor")  // Relación con los módulos
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.PERSIST)  // Relación con los módulos
     private Set<Modulo> modulos;  // Un profesor imparte varios módulos
 }
