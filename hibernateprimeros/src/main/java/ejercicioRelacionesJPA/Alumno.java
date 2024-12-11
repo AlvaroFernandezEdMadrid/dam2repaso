@@ -1,54 +1,48 @@
 package ejercicioRelacionesJPA;
 
-import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.*;
+import java.time.LocalDate;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import java.util.HashSet;
 
-@Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Alumno implements Serializable {
 
-    @Id
-    @Column(name = "ID_ALUMNO")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Include
-    private Integer id;
+@EntityListeners(AlumnoListener.class)// Trigger para borrar alumno
+@Entity
+public class Alumno {
+	@EqualsAndHashCode.Include
+	@Id
+	@Column(length = 10)
+	private String dni;
 
-    @Column(name = "DNI", length = 9)
-    private String dni;
+	@Column(length = 30)
+	private String nombre;
 
-    @Column(name = "NOMBRE", length = 30)
-    private String nombre;
+	private LocalDate fechaNacimiento;
 
-    @Column(name = "FECHA_NACIMIENTO", length = 30)
-    private String fechaNacimiento;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="idDireccion")
+	private Direccion direccion;
 
-    @ManyToOne
-    @JoinColumn(name = "grupo_id")  // Relación con el grupo
-    private Grupo grupo;
+	/*
+	@OneToMany
+	@JoinColumn(name = "idAlumno")
+	private Set<Calificacion> calificaciones;
+	 */
 
-    @OneToOne(mappedBy = "alumno", cascade = CascadeType.PERSIST)  // Relación con la dirección
-    private Direccion direccion;
 
-    @OneToMany(mappedBy = "alumno")  // Relación con las notas de los módulos
-    private Set<Nota> notas;
-
-    @ManyToMany
-    @JoinTable(
-        name = "alumno_modulo", 
-        joinColumns = @JoinColumn(name = "alumno_id"), 
-        inverseJoinColumns = @JoinColumn(name = "modulo_id")
-    )
-    @Builder.Default  // Asegura que se inicialice con un HashSet vacío
-    private Set<Modulo> modulos = new HashSet<Modulo>();  // Un alumno cursa varios módulos
 }

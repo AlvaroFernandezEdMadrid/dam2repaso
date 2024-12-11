@@ -1,42 +1,46 @@
 package ejercicioRelacionesJPA;
 
-import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 
-@Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Grupo implements Serializable {
 
-    @Id
-    @Column(name="ID_GRUPO")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Include
-    private Integer id;
+@Entity
+public class Grupo {
+	@EqualsAndHashCode.Include
+	@Id
+	@Column(length = 10)
+	private String nombre;
 
-    @Column(name = "NOMBRE", length = 30)
-    private String nombre;
+	@Column(length = 10)
+	private String ubicacion;
 
-    @Column(name = "UBICACION", length = 30)
-    private String ubicacion;
+	@Singular
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="idGrupo")
+	private Set<Alumno> alumnos;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "tutor_id", nullable = true)  // Relación con el tutor (Profesor), opcional
-    private Profesor tutor;
-
-    @OneToMany(mappedBy = "grupo", fetch = FetchType.EAGER)  // Relación con los alumnos
-    @Builder.Default  // Esto asegura que el campo se inicializa con un HashSet vacío
-    private Set<Alumno> alumnos = new HashSet<>();  // Un grupo tiene varios alumnos
-
+	//@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER) //no modificar profesor
+	@OneToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
+	@JoinColumn(name="idProfesor")
+	private Profesor tutor;
 }

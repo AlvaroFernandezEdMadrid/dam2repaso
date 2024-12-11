@@ -1,41 +1,44 @@
 package ejercicioRelacionesJPA;
 
-import java.io.Serializable;
-import java.util.HashSet;  // Asegúrate de importar HashSet
-import java.util.Set;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Modulo implements Serializable {
 
-    @Id
-    @Column(name = "ID_MODULO")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Include
-    private Integer id;
+@Entity
+public class Modulo {
 
-    @Column(name = "NOMBRE", length = 30)
-    private String nombre;
+	@EqualsAndHashCode.Include
+	@Id
+	@Column(length = 10)
+	private String id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "profesor_id")  // Relación con el profesor que imparte el módulo
-    private Profesor profesor;
+	@Column(length = 30)
+	private String nombre;
 
-    @ManyToMany(mappedBy = "modulos")  // Relación con los alumnos (muchos a muchos)
-    @Builder.Default  // Inicializa la colección de alumnos con un HashSet vacío
-    private Set<Alumno> alumnos = new HashSet<>();  // Un módulo tiene varios alumnos
 
-    @OneToMany(mappedBy = "modulo")  // Relación con las notas
-    private Set<Nota> notas;
+	//@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER) //actúa sobre profesor
+	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER) 
+	@JoinColumn(name="idProfesor")
+	private Profesor profesor;
+
+	/*
+	@OneToMany
+	@JoinColumn(name = "idModulo")
+	private Set<Calificacion> calificaciones;
+	 */
 }
