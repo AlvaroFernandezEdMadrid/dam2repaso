@@ -12,11 +12,10 @@ public class AppGruposAlumnosModulo {
 	private GenericJPADAO <Profesor,String> profeDAO ;
 	private GenericJPADAO <Modulo,String> moduloDAO ;
 	private GenericJPADAO <Calificacion,Integer> calificacionDAO ;
+	
 	public AppGruposAlumnosModulo ()
 	{
-
 		grupoDAO = new GenericJPADAO(Grupo.class,UNIDADPERSISTENCIA);
-
 		alumnoDAO = new GenericJPADAO(Alumno.class,UNIDADPERSISTENCIA);
 		profeDAO = new GenericJPADAO(Profesor.class,UNIDADPERSISTENCIA);
 		moduloDAO = new GenericJPADAO(Modulo.class,UNIDADPERSISTENCIA);
