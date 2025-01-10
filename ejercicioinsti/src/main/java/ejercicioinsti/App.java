@@ -9,7 +9,6 @@ import ejercicioinsti.modelo.Direccion;
 import ejercicioinsti.modelo.Email;
 import ejercicioinsti.modelo.Estudiante;
 import ejercicioinsti.modelo.Instituto;
-import ejercicioinsti.modelo.Persona;
 import ejercicioinsti.modelo.Profesor;
 import ejercicioinsti.modelo.TipoEstudio;
 import utilidadeshibernate.GenericJPADAO;
@@ -17,8 +16,11 @@ import utilidadeshibernate.GenericJPADAO;
 public class App {
 	
 	private GenericJPADAO<Instituto, String> institutoDAO;
-	private GenericJPADAO<Persona, String> personaDAO;
 	private final static String UNIDADPERSISTENCIA="instituto";
+	
+	private App() {
+		institutoDAO=new GenericJPADAO<Instituto, String>(Instituto.class,UNIDADPERSISTENCIA);
+	}
 
 	public static void main(String[] args) {
 		 App app=new App();
@@ -69,7 +71,7 @@ public class App {
 				fechaNac(LocalDate.of(2004, 03, 11)).
 				poblacion("Madrid").
 				email(new ArrayList<Email>()).
-				curso("2").
+				curso("5").
 				grupo("3").
 				delegado(true).
 				tipoEstudio(TipoEstudio.ESO).build();
@@ -109,11 +111,6 @@ public class App {
 		p1.getEmail().add(m3);
 		p2.getEmail().add(m4);
 		
-		e1.setTutor(p2);
-		e2.setTutor(p2);
-		
-		p2.setTutorandos(estudiantes);
-		
 		profesores.add(p1);
 		profesores.add(p2);
 		
@@ -122,6 +119,8 @@ public class App {
 		
 		insti.setEstudiantes(estudiantes);
 		insti.setProfesores(profesores);
+		
+		institutoDAO.save(insti);
 	}
 
 }

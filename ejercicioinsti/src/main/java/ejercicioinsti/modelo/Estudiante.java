@@ -2,12 +2,8 @@ package ejercicioinsti.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,22 +28,13 @@ public class Estudiante extends Persona {
 	
 	private boolean delegado;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tutor_id")
-	private Profesor tutor;
-	
 	private TipoEstudio tipoEstudio;
 	
-	@Override
-    public String toString() {
-        return "Estudiante{" +
-                "nif='" + getNif() + '\'' +
-                ", nombre='" + getNombre() + '\'' +
-                ", curso='" + curso + '\'' +
-                ", grupo='" + grupo + '\'' +
-                ", delegado=" + delegado +
-                ", tipoEstudi="+ tipoEstudio +
-                ", tutorNif='" + (tutor != null ? tutor.getNif() : "No tiene tutor") + '\'' +  // Solo imprime el nif del tutor
-                '}';
-    }
+	public void setCurso(String c){
+		if (tipoEstudio.isCursoValido(Integer.valueOf(c))) {
+			this.curso=c;
+		}else
+			this.curso="1";
+	}
+	
 }

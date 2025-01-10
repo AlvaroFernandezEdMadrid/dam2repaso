@@ -46,6 +46,6 @@ public abstract class Persona {
 	@Column (length=20)
 	private String poblacion;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "persona")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Email> email;
 }
