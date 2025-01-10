@@ -1,6 +1,7 @@
 package ejercicioinsti.modelo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ public abstract class Persona {
 	@EqualsAndHashCode.Include
 	
 	@Id
-	@Column(length = 10)
+	@Column(length = 10, unique = true)
 	private String nif;
 	
 	@Column (length=20)
@@ -45,6 +46,6 @@ public abstract class Persona {
 	@Column (length=20)
 	private String poblacion;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Email email;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "persona")
+	private List<Email> email;
 }

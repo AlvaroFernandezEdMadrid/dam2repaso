@@ -28,8 +28,10 @@ public class Direccion {
 	
 	@Column(length = 20)
 	private String calle;
+	
 	@Column(length = 20)
 	private String poblacion;
+	
 	@Column(length = 5)
 	private String codPostal;
 }
