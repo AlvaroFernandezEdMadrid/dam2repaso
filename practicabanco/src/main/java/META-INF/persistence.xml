@@ -6,7 +6,12 @@
 
 	<persistence-unit name="banco1" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>ejerciciobanco.modelo.Cliente</class>
+		<class>practicabanco.modelo.Cliente</class>
+		<class>practicabanco.modelo.ClienteCuenta</class>
+		<class>practicabanco.modelo.Cuenta</class>
+		<class>practicabanco.modelo.CuentaEmpresa</class>
+		<class>practicabanco.modelo.CuentaPersonal</class>
+		<class>practicabanco.modelo.Telefono</class>
 		
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
