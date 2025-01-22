@@ -30,6 +30,8 @@ public class HolaMundo implements CommandLineRunner {
 		
 		//alumnoDAO.findAll().forEach(System.out::println);
 		alumnoDAO.findByNota(10).forEach(System.out::println);
+		
+		alumnoDAO.calcularMedia().ifPresentOrElse(System.out::println, null);;
 	}
 
 }
