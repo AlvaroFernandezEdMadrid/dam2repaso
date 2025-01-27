@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 import com.dam2.primerspring.modelo.Alumno;
 import com.dam2.primerspring.repositorio.AlumnoRepositorio;
-@Component
-@Order(value=1)
-public class HolaMundo implements CommandLineRunner {
+
+
+public class PruebaRepositorio implements CommandLineRunner {
 
 	@Autowired
 	private AlumnoRepositorio alumnoDAO;
@@ -22,16 +22,19 @@ public class HolaMundo implements CommandLineRunner {
 		Alumno a = Alumno.builder()
 				.nia("001")
 				.nombre("Paco")
-				.nota(9)
+				.nota(4)
 				.fecha(LocalDate.now())
 				.build();
 		
 		alumnoDAO.save(a);
 		
-		//alumnoDAO.findAll().forEach(System.out::println);
-		alumnoDAO.findByNota(10).forEach(System.out::println);
+		alumnoDAO.subirPunto(4);
 		
-		alumnoDAO.calcularMedia().ifPresentOrElse(System.out::println, null);;
+		//alumnoDAO.listadoAlumnos().forEach(ar -> System.out::println(ar));
+		//alumnoDAO.findAll().forEach(System.out::println);
+		//alumnoDAO.findByNota(10).forEach(System.out::println);
+		
+		//alumnoDAO.calcularMedia().ifPresentOrElse(System.out::println, null);;
 	}
 
 }
