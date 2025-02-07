@@ -27,4 +27,10 @@ public class Usuario {
 	private String password;
 	
 	private int puntos;
+	
+	public void aumentarPuntos(int puntos) {
+		if (puntos>0) {
+			this.puntos+=puntos;
+		}
+	}
 }
