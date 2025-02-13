@@ -1,5 +1,6 @@
 package com.usuarionoticiacomentario.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +52,13 @@ public class NoticiaServiceImpl implements INoticiaService{
 
 	@Override
 	public List<Noticia> findByUsuario(String usuId) {
-		Usuario u=Usuario.builder().nickname(usuId).build();
+	    Usuario u = Usuario.builder().nickname(usuId).build();
 
-		return noticiaDAO.findByRedactor(u);
+	    List<Noticia> noticias = noticiaDAO.findByRedactor(u);
+	    
+	    return noticias != null ? noticias : new ArrayList<>();
 	}
+
 
 	@Override
 	public List<Noticia> findByCategoria(Categoria c) {return noticiaDAO.findByCategoria(c);}

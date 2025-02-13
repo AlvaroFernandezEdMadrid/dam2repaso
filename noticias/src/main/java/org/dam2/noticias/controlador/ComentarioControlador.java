@@ -2,11 +2,8 @@ package org.dam2.noticias.controlador;
 
 import java.util.List;
 
-import org.dam2.noticias.modelo.data.Comentario;
-import org.dam2.noticias.modelo.data.Usuario;
 import org.dam2.noticias.modelo.dto.ComentarioDto;
 import org.dam2.noticias.servicio.IComentarioServicio;
-import org.dam2.noticias.servicio.INoticiaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("noticias/comentario")
 public class ComentarioControlador {
 	
-	@Autowired private INoticiaServicio noticiaServicio;
 	@Autowired private IComentarioServicio comentarioServicio;
 	
 	@GetMapping ("/consultar")
@@ -33,9 +29,7 @@ public class ComentarioControlador {
 	
 	@GetMapping ("/consultarpornoticia/{titulo}")
 	public ResponseEntity<List<ComentarioDto>> obtenerComentariosPorNoticia (@PathVariable String titulo)
-	{
-
-		
+	{	
 		return ResponseEntity.ok(comentarioServicio.findByNoticia(titulo));	
 	}
 	
