@@ -29,7 +29,7 @@ public class CargarDatos implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		if (!datosCargados) {
 			datosCargados = true;
 
@@ -104,8 +104,8 @@ public class CargarDatos implements CommandLineRunner{
 			comentarioServicio.insert(c1);
 			comentarioServicio.insert(c2);
 			comentarioServicio.insert(c3);
-			
-			
+
+
 			System.out.println("DATOS CARGADOS");
 
 		}
